@@ -1,7 +1,15 @@
 <template>
   <div class="checkbox-input">
     <div class="container" :class="{ pressed: isMouseDown }">
-      <input :name="name" :id="id" :disabled="disabled" :checked="checked" class="native" type="checkbox" @mousedown="onMouseDown">
+      <input
+        :name="name"
+        :id="id"
+        :disabled="disabled"
+        :checked="checked"
+        class="native"
+        type="checkbox"
+        @mousedown="onMouseDown"
+      >
       <span class="custom">
         <span class="ripple" />
       </span>
@@ -23,11 +31,9 @@ export default {
   props: {
     disabled: {
       type: Boolean,
-      default: false,
     },
     checked: {
       type: Boolean,
-      default: false,
     },
     name: {
       type: String,
@@ -36,14 +42,14 @@ export default {
     id: {
       type: String,
       required: true,
-    }
+    },
   },
   methods: {
-    onMouseDown(event) {
+    onMouseDown() {
       this.isMouseDown = true;
 
-      const onMouseUp = (event) => {
-        setTimeout(this.onMouseUp,100);
+      const onMouseUp = () => {
+        setTimeout(this.onMouseUp, 100);
         document.removeEventListener('mouseup', onMouseUp);
       };
 
@@ -52,21 +58,22 @@ export default {
     onMouseUp() {
       this.isMouseDown = false;
     },
-  }
+  },
 };
 </script>
 
 <style lang="less">
   // variables
   @checkbox--width: 18px;
-  @checkbox--background-color: #0e5ef6;
-  @checkbox--border-color: @checkbox--background-color;
+  @checkbox--border-color: #666666;
+  @checkbox_checked--background-color: #0e5ef6;
+  @checkbox_checked--border-color: @checkbox_checked--background-color;
   @checkbox_label--font-size: 18px;
   @checkbox_label--line-height: @checkbox_label--font-size;
-  @checkbox_disabled--background-color: #9e9e9e;
+  @checkbox_enabled-hover--background-color: #009BFF;
+  @checkbox_disabled-hover--background-color: #9e9e9e;
+  @checkbox_disabled--background-color: #666666;
   @checkbox_disabled--border-color: @checkbox_disabled--background-color;
-  @checkbox--border-color: #666666;
-  @checkbox_checked--border-color: #009BFF;
 
   // mixins
   .lib-centered {
@@ -101,7 +108,7 @@ export default {
 
       &:hover {
         > .native:checked:not(:focus) ~ .custom > .ripple {
-          background-color: fadeout(@checkbox--background-color, 95%);
+          background-color: fadeout(@checkbox_enabled-hover--background-color, 95%);
         }
 
         > .custom > .ripple,
@@ -191,7 +198,7 @@ export default {
         }
 
         &:disabled:checked + .custom {
-          border-color: @checkbox_disabled--border-color;
+          border-color: @checkbox--border-color;
           background-color: @checkbox_disabled--background-color;
         }
 
@@ -200,16 +207,16 @@ export default {
         }
 
         &:checked:focus + .custom > .ripple {
-          background-color: fadeout(@checkbox--background-color, 80%);
+          background-color: fadeout(@checkbox_checked--background-color, 80%);
         }
 
         &:checked + .custom {
           & {
-            background-color: @checkbox--background-color;
+            background-color: @checkbox_checked--background-color;
             border-radius: 2px;
             transform: translateY(-50%) scale(1);
             opacity:1;
-            border: 2px solid @checkbox--border-color;
+            border: 2px solid @checkbox_checked--border-color;
           }
 
           &:after {

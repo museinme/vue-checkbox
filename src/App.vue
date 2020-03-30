@@ -1,14 +1,29 @@
 <template>
   <div id="app">
-    <CheckboxInput id="1" name="name"/>
+    <CheckboxInput
+      id="1"
+      name="name"
+    />
     <span class="text">(no label)</span>
-    <CheckboxInput id="2" name="name">
+    <CheckboxInput
+      id="2"
+      name="name"
+    >
       Enabled
     </CheckboxInput>
-    <CheckboxInput id="4" name="name" :checked="true">
+    <CheckboxInput
+      id="4"
+      name="name"
+      :checked="true"
+    >
       Checked
     </CheckboxInput>
-    <CheckboxInput id="3" name="name" :disabled="true" :checked="true">
+    <CheckboxInput
+      id="3"
+      name="name"
+      :disabled="true"
+      :checked="true"
+    >
       Disabled, Checked
     </CheckboxInput>
   </div>
